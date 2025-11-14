@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
@@ -38,34 +39,35 @@ const props = defineProps<{
     <AppLayout>
 
         <Head title="Campanhas" />
+        <PlaceholderPattern />
 
         <div class="py-8">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="mx-auto max-w-full px-4 sm:px-6 lg:px-8 space-y-8">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900">
+                        <h1 class="text-2xl font-bold text-[#e5e9eb]">
                             Campanhas
                         </h1>
-                        <p class="mt-1 text-sm text-gray-500">
+                        <p class="mt-1 text-sm text-[#e5e9eb]">
                             Visualize as campanhas de anúncios vinculadas ao workspace
-                            <span class="font-semibold text-gray-700">
+                            <span class="font-semibold text-[#05b7c3]">
                                 "{{ props.workspace.name }}"
                             </span>.
                         </p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                <div class="rounded-xl shadow-sm border border-gray-100">
                     <div class="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-                        <h2 class="text-sm font-semibold text-gray-700">
+                        <h2 class="text-sm font-semibold text-[#05b7c3]">
                             Lista de campanhas
                         </h2>
-                        <span class="text-xs text-gray-500">
+                        <span class="text-xs text-[#e5e9eb]">
                             Total: {{ props.campaigns.length }}
                         </span>
                     </div>
 
-                    <div v-if="props.campaigns.length === 0" class="p-4 text-sm text-gray-500">
+                    <div v-if="props.campaigns.length === 0" class="p-4 text-sm text-[#e5e9eb]">
                         Ainda não há campanhas cadastradas. Assim que conectar uma conta de anúncios e
                         sincronizar os dados, elas aparecerão aqui.
                     </div>
@@ -86,10 +88,10 @@ const props = defineProps<{
                             <tbody class="divide-y divide-gray-100">
                                 <tr v-for="campaign in props.campaigns" :key="campaign.id" class="hover:bg-gray-50">
                                     <td class="px-4 py-2">
-                                        <div class="font-medium text-gray-900">
+                                        <div class="font-medium text-[#e5e9eb]">
                                             {{ campaign.name }}
                                         </div>
-                                        <div class="text-xs text-gray-500">
+                                        <div class="text-xs text-[#e5e9eb]">
                                             ID externo: {{ campaign.external_id }}
                                         </div>
                                     </td>
@@ -97,14 +99,14 @@ const props = defineProps<{
                                         <div class="text-gray-800">
                                             {{ campaign.ad_account?.name || '—' }}
                                         </div>
-                                        <div class="text-xs text-gray-500">
+                                        <div class="text-xs text-[#e5e9eb]">
                                             {{ campaign.ad_account?.external_id || '' }}
                                         </div>
                                     </td>
-                                    <td class="px-4 py-2 text-gray-700">
+                                    <td class="px-4 py-2 text-[#05b7c3]">
                                         {{ campaign.provider }}
                                     </td>
-                                    <td class="px-4 py-2 text-gray-700">
+                                    <td class="px-4 py-2 text-[#05b7c3]">
                                         {{ campaign.objective || '—' }}
                                     </td>
                                     <td class="px-4 py-2 text-right">
@@ -126,7 +128,7 @@ const props = defineProps<{
                                             {{ campaign.status }}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2 text-right text-xs text-gray-500">
+                                    <td class="px-4 py-2 text-right text-xs text-[#e5e9eb]">
                                         {{ new Date(campaign.created_at).toLocaleString() }}
                                     </td>
                                 </tr>
