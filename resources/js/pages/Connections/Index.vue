@@ -66,7 +66,7 @@ const props = defineProps<{
                                 </p>
                             </div>
                             <button type="button"
-                                class="inline-flex items-center rounded-md border border-indigo-600 hover:border-b-emerald-600 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 hover:text-emerald-600 hover:bg-emerald-200">
+                                class="inline-flex items-center rounded-md border border-indigo-600 hover:border-b-emerald-600 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 hover:text-emerald-600 hover:bg-emerald-200 cursor-pointer">
                                 Conectar
                             </button>
                         </div>
