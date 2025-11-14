@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\ConnectionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -10,15 +12,24 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', [
-        'metrics' => [
-            'totalSpend'   => 14,
-            'sessions'     => 11,
-            'conversions'  => 224,
-            'revenue'      => 41,
-        ],
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard', [
+            'metrics' => [
+                'totalSpend'   => 14,
+                'sessions'     => 11,
+                'conversions'  => 224,
+                'revenue'      => 41,
+            ],
+        ]);
+    })->name('dashboard');
+
+    Route::get('/connections', [ConnectionController::class, 'index'])
+        ->name('connections.index');
+
+    Route::get('/campaigns', [CampaignController::class, 'index'])
+        ->name('campaigns.index');
+});
 
 require __DIR__ . '/settings.php';
