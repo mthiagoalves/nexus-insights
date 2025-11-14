@@ -13,10 +13,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
         'metrics' => [
-            'totalSpend'   => 0,
-            'sessions'     => 0,
-            'conversions'  => 0,
-            'revenue'      => 0,
+            'totalSpend'   => 14,
+            'sessions'     => 11,
+            'conversions'  => 224,
+            'revenue'      => 41,
         ],
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
