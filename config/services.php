@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'meta' => [
+        'client_id'     => env('META_APP_ID'),
+        'client_secret' => env('META_APP_SECRET'),
+        'redirect'      => env('META_REDIRECT_URI'),
+        'api_version'   => env('META_API_VERSION', 'v20.0'),
+    ],
 ];

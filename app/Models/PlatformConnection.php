@@ -21,6 +21,8 @@ class PlatformConnection extends Model
     protected $casts = [
         'token_expires_at' => 'datetime',
         'extra_data' => 'array',
+        'access_token'     => 'encrypted',
+        'refresh_token'    => 'encrypted',
     ];
 
     public function workspace(): BelongsTo

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 
 interface WorkspaceSummary {
     id: number;
@@ -65,10 +65,15 @@ const props = defineProps<{
                                     Clique em conectar para autorizar o Nexus Insights a acessar os dados.
                                 </p>
                             </div>
-                            <button type="button"
+                            <a v-if="provider.key === 'meta'"
+                                class="inline-flex items-center rounded-md border border-indigo-600 hover:border-b-emerald-600 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 hover:text-emerald-600 hover:bg-emerald-200 cursor-pointer"
+                                href="/auth/meta/redirect">
+                                Conectar
+                            </a>
+                            <a v-else
                                 class="inline-flex items-center rounded-md border border-indigo-600 hover:border-b-emerald-600 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 hover:text-emerald-600 hover:bg-emerald-200 cursor-pointer">
                                 Conectar
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
