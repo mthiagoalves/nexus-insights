@@ -27,6 +27,10 @@ const props = defineProps<{
     connections: Connection[];
     availableProviders: ProviderOption[];
 }>();
+
+const syncMetaCampaigns = () => {
+    router.post('meta.syncCampaigns');
+};
 </script>
 
 <template>
@@ -92,17 +96,25 @@ const props = defineProps<{
                         <div v-for="conn in props.connections" :key="conn.id"
                             class="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-2">
                             <div>
-                                <p class="text-sm font-medium text-[e5e9eb]">
+                                <p class="text-sm font-medium text-gray-800">
                                     {{ conn.name || conn.provider }}
                                 </p>
-                                <p class="text-xs text-[#e5e9eb]">
+                                <p class="text-xs text-gray-500">
                                     Provedor: {{ conn.provider }} • Desde: {{ new Date(conn.created_at).toLocaleString()
                                     }}
                                 </p>
                             </div>
-                            <button type="button" class="text-xs text-red-500 hover:text-red-600">
-                                Desconectar
-                            </button>
+
+                            <div class="flex items-center gap-3">
+                                <button v-if="conn.provider === 'meta'" type="button"
+                                    class="text-xs text-indigo-600 hover:text-indigo-700" @click="syncMetaCampaigns">
+                                    Sincronizar campanhas
+                                </button>
+
+                                <button type="button" class="text-xs text-red-500 hover:text-red-600">
+                                    Desconectar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

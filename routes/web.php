@@ -4,6 +4,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MetaAuthController;
+use App\Http\Controllers\MetaSyncController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -30,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/auth/meta/callback', [MetaAuthController::class, 'callback'])
         ->name('meta.callback');
+
+    Route::post('/meta/sync-campaigns', MetaSyncController::class)->name('meta.syncCampaigns');
 });
 
 require __DIR__ . '/settings.php';
