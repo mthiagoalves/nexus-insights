@@ -6,6 +6,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Models\Workspace;
+use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -30,10 +35,27 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => $input['password'],
         ]);
+
+        $workspace = Workspace::create([
+            'owner_id' => $user->id,
+            'name'     => 'Nexus - ' . $user->name,
+            'slug'     => Str::slug('nexus-' . $user->id . '-' . $user->name),
+        ]);
+
+        // 🔹 Vincula o usuário ao workspace como "owner"
+        $user->workspaces()->attach($workspace->id, [
+            'role' => 'owner',
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return $user;
     }
 }
