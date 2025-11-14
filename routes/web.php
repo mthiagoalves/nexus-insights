@@ -10,8 +10,15 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard', [
+        'metrics' => [
+            'totalSpend'   => 0,
+            'sessions'     => 0,
+            'conversions'  => 0,
+            'revenue'      => 0,
+        ],
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
