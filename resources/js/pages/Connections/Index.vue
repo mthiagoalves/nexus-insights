@@ -29,7 +29,7 @@ const props = defineProps<{
 }>();
 
 const syncMetaCampaigns = () => {
-    router.post('meta.syncCampaigns');
+    router.post('/meta/sync-campaigns');
 };
 </script>
 
@@ -96,10 +96,10 @@ const syncMetaCampaigns = () => {
                         <div v-for="conn in props.connections" :key="conn.id"
                             class="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-2">
                             <div>
-                                <p class="text-sm font-medium text-gray-800">
+                                <p class="text-sm font-medium text-[#e5e9eb]">
                                     {{ conn.name || conn.provider }}
                                 </p>
-                                <p class="text-xs text-gray-500">
+                                <p class="text-xs text-[#e5e9eb]">
                                     Provedor: {{ conn.provider }} • Desde: {{ new Date(conn.created_at).toLocaleString()
                                     }}
                                 </p>
