@@ -38,6 +38,16 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+
+        $currentWorkspace = null;
+
+        if ($user) {
+            $currentWorkspace = $user->workspaces()
+                ->select('workspaces.id', 'workspaces.name', 'workspaces.slug')
+                ->first();
+        }
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -45,6 +55,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'currentWorkspace' => $currentWorkspace,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
