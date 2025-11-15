@@ -74,32 +74,33 @@ const props = defineProps<{
 
                     <div v-else class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-100 text-sm">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-[#e4e9e9]">
                                 <tr>
-                                    <th class="px-4 py-2 text-left font-semibold text-gray-600">Campanha</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-gray-600">Conta</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-gray-600">Provedor</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-gray-600">Objetivo</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-600">Budget diário</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-gray-600">Status</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-600">Criada em</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Campanha</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Conta</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Provedor</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Objetivo</th>
+                                    <th class="px-4 py-2 text-right font-semibold text-[#313740]">Budget diário</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Status</th>
+                                    <th class="px-4 py-2 text-right font-semibold text-[#313740]">Criada em</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                <tr v-for="campaign in props.campaigns" :key="campaign.id" class="hover:bg-gray-50">
+                                <tr v-for="campaign in props.campaigns" :key="campaign.id"
+                                    class="hover:bg-[#e4e9e9] text-[#e5e9eb] hover:text-[#313740]">
                                     <td class="px-4 py-2">
-                                        <div class="font-medium text-[#e5e9eb]">
+                                        <div class="font-medium">
                                             {{ campaign.name }}
                                         </div>
-                                        <div class="text-xs text-[#e5e9eb]">
+                                        <div class="text-xs">
                                             ID externo: {{ campaign.external_id }}
                                         </div>
                                     </td>
                                     <td class="px-4 py-2">
-                                        <div class="text-gray-800">
+                                        <div class="text-[#e8ae2a]">
                                             {{ campaign.ad_account?.name || '—' }}
                                         </div>
-                                        <div class="text-xs text-[#e5e9eb]">
+                                        <div class="text-xs">
                                             {{ campaign.ad_account?.external_id || '' }}
                                         </div>
                                     </td>
@@ -123,12 +124,12 @@ const props = defineProps<{
                                             :class="{
                                                 'bg-emerald-50 text-emerald-700': campaign.status === 'active',
                                                 'bg-yellow-50 text-yellow-700': campaign.status === 'paused',
-                                                'bg-gray-50 text-gray-600': campaign.status !== 'active' && campaign.status !== 'paused',
+                                                'bg-[#e4e9e9] text-gray-600': campaign.status !== 'active' && campaign.status !== 'paused',
                                             }">
                                             {{ campaign.status }}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2 text-right text-xs text-[#e5e9eb]">
+                                    <td class="px-4 py-2 text-right text-xs">
                                         {{ new Date(campaign.created_at).toLocaleString() }}
                                     </td>
                                 </tr>
