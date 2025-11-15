@@ -31,6 +31,10 @@ const props = defineProps<{
 const syncMetaCampaigns = () => {
     router.post('/meta/sync-campaigns');
 };
+
+const syncMetaInsights = () => {
+    router.post('/meta/sync-insights');
+};
 </script>
 
 <template>
@@ -106,10 +110,16 @@ const syncMetaCampaigns = () => {
                             </div>
 
                             <div class="flex items-center gap-3">
-                                <button v-if="conn.provider === 'meta'" type="button"
-                                    class="text-xs text-indigo-600 hover:text-indigo-700" @click="syncMetaCampaigns">
-                                    Sincronizar campanhas
-                                </button>
+                                <template v-if="conn.provider === 'meta'">
+                                    <button type="button" class="text-xs text-indigo-600 hover:text-indigo-700"
+                                        @click="syncMetaCampaigns">
+                                        Sincronizar campanhas
+                                    </button>
+                                    <button type="button" class="text-xs text-emerald-600 hover:text-emerald-700"
+                                        @click="syncMetaInsights">
+                                        Sincronizar métricas
+                                    </button>
+                                </template>
 
                                 <button type="button" class="text-xs text-red-500 hover:text-red-600">
                                     Desconectar

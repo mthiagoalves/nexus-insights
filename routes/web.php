@@ -4,6 +4,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MetaAuthController;
+use App\Http\Controllers\MetaInsightsSyncController;
 use App\Http\Controllers\MetaSyncController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('meta.callback');
 
     Route::post('/meta/sync-campaigns', MetaSyncController::class)->name('meta.syncCampaigns');
+
+    Route::post('/meta/sync-insights', MetaInsightsSyncController::class)
+        ->name('meta.syncInsights');
 });
 
 require __DIR__ . '/settings.php';
