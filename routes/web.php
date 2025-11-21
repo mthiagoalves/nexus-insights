@@ -37,6 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/meta/sync-insights', MetaInsightsSyncController::class)
         ->name('meta.syncInsights');
+
+    Route::get('/campaigns/metrics', [CampaignController::class, 'indexWithMetrics'])
+        ->name('campaigns.metrics');
 });
 
 require __DIR__ . '/settings.php';
