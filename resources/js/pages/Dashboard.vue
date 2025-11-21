@@ -93,7 +93,7 @@ const applyFilters = async () => {
                         class="rounded-md border bg-sidebar-input px-3 py-2 text-sm text-white"
                         :min="filters.from || undefined" />
                     <button @click="applyFilters"
-                        class="ml-2 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white"
+                        class="ml-2 inline-flex items-center rounded-md bg-[#05b7c3] px-3 py-2 text-sm font-semibold text-white"
                         :class="{ 'opacity-60 pointer-events-none': applying }">
                         {{ applying ? 'Aplicando...' : 'Aplicar' }}
                     </button>
@@ -135,7 +135,7 @@ const applyFilters = async () => {
             </div>
 
             <!-- Chart + receita -->
-            <div class="grid gap-4 md:grid-cols-3">
+            <div class="grid gap-4 md:grid-cols-">
                 <div
                     class="relative col-span-2 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4 bg-gradient-to-b from-white/3 to-transparent">
                     <div class="mb-2">

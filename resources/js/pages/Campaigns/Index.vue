@@ -74,15 +74,15 @@ const props = defineProps<{
 
                     <div v-else class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-100 text-sm">
-                            <thead class="bg-[#e4e9e9]">
+                            <thead class="bg-[#e4e9e9] text-[#313740] text-left font-semibold">
                                 <tr>
-                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Campanha</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Conta</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Provedor</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Objetivo</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-[#313740]">Budget diário</th>
-                                    <th class="px-4 py-2 text-left font-semibold text-[#313740]">Status</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-[#313740]">Criada em</th>
+                                    <th class="px-4 py-2">Campanha</th>
+                                    <th class="px-4 py-2">Conta</th>
+                                    <th class="px-4 py-2">Provedor</th>
+                                    <th class="px-4 py-2">Objetivo</th>
+                                    <th class="px-4 py-2">Budget diário</th>
+                                    <th class="px-4 py-2">Status</th>
+                                    <th class="px-4 py-2">Criada em</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
