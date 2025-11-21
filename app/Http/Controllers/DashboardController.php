@@ -20,27 +20,54 @@ class DashboardController extends Controller
             abort(403, 'Nenhum workspace encontrado para este usuário.');
         }
 
-        // 🔹 Agregando métricas do ad_metrics_daily para este workspace
-        $row = DB::table('ad_metrics_daily')
+        // parâmetros de filtro (padrão: últimos 7 dias)
+        $from = $request->query('from', now()->subDays(6)->toDateString()); // 7 dias incluindo hoje
+        $to   = $request->query('to', now()->toDateString());
+
+        // KPIs totais no período
+        $kpi = DB::table('ad_metrics_daily')
             ->where('workspace_id', $workspace->id)
+            ->whereBetween('date', [$from, $to])
             ->selectRaw('
-                COALESCE(SUM(spend), 0)          AS total_spend,
-                COALESCE(SUM(clicks), 0)         AS total_clicks,
-                COALESCE(SUM(conversions), 0)    AS total_conversions,
-                COALESCE(SUM(revenue), 0)        AS total_revenue
+                COALESCE(SUM(spend), 0) AS total_spend,
+                COALESCE(SUM(clicks), 0) AS total_clicks,
+                COALESCE(SUM(conversions), 0) AS total_conversions,
+                COALESCE(SUM(revenue), 0) AS total_revenue
             ')
             ->first();
 
-        $metrics = [
-            'totalSpend'   => (float) ($row->total_spend ?? 0),
-            // por enquanto usamos clicks como "sessions" placeholder
-            'sessions'     => (int) ($row->total_clicks ?? 0),
-            'conversions'  => (int) ($row->total_conversions ?? 0),
-            'revenue'      => (float) ($row->total_revenue ?? 0),
+        $metricsSummary = [
+            'totalSpend'  => (float) ($kpi->total_spend ?? 0),
+            'sessions'    => (int) ($kpi->total_clicks ?? 0),
+            'conversions' => (int) ($kpi->total_conversions ?? 0),
+            'revenue'     => (float) ($kpi->total_revenue ?? 0),
         ];
 
+        // Série diária (agregada por date)
+        $series = DB::table('ad_metrics_daily')
+            ->where('workspace_id', $workspace->id)
+            ->whereBetween('date', [$from, $to])
+            ->selectRaw('date, COALESCE(SUM(spend),0) as spend, COALESCE(SUM(revenue),0) as revenue, COALESCE(SUM(impressions),0) as impressions, COALESCE(SUM(clicks),0) as clicks')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get()
+            ->map(function ($row) {
+                return [
+                    'date' => $row->date,
+                    'spend' => (float) $row->spend,
+                    'revenue' => (float) $row->revenue,
+                    'impressions' => (int) $row->impressions,
+                    'clicks' => (int) $row->clicks,
+                ];
+            });
+
         return Inertia::render('Dashboard', [
-            'metrics' => $metrics,
+            'metrics' => $metricsSummary,
+            'series'  => $series,
+            'filters' => [
+                'from' => $from,
+                'to'   => $to,
+            ],
         ]);
     }
 }
